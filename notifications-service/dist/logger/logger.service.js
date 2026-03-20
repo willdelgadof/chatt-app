@@ -42,12 +42,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoggerService = void 0;
 const common_1 = require("@nestjs/common");
 const winston = __importStar(require("winston"));
+const node_1 = require("@logtail/node");
+const winston_1 = require("@logtail/winston");
+const logtail = new node_1.Logtail('mZdCzQ4iD86bNMbD5qwH3TGQ');
 let LoggerService = class LoggerService {
     logger = winston.createLogger({
         transports: [
             new winston.transports.Console({
                 format: winston.format.combine(winston.format.timestamp(), winston.format.simple()),
             }),
+            new winston_1.LogtailTransport(logtail),
         ],
     });
     log(message) { this.logger.info(message); }

@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import * as winston from 'winston';
+import { Logtail } from '@logtail/node';
+import { LogtailTransport } from '@logtail/winston';
+
+const logtail = new Logtail('mZdCzQ4iD86bNMbD5qwH3TGQ');
 
 @Injectable()
 export class LoggerService {
@@ -11,6 +15,7 @@ export class LoggerService {
           winston.format.simple(),
         ),
       }),
+      new LogtailTransport(logtail),
     ],
   });
 
